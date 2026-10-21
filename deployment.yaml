@@ -1,5 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: flask-demo
 
@@ -17,8 +18,8 @@ spec:
 
     spec:
       containers:
-      - name: flask-demo
-        image: image: yathavacr01.azurecr.io/flask-demo:latest
+        - name: flask-demo
+          image: yathavacr01.azurecr.io/flask-demo:latest
 
-        ports:
-        - containerPort: 5000
+          ports:
+            - containerPort: 5000
