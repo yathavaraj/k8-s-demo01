@@ -60,6 +60,7 @@ jobs:
       - name: Apply Deployment
         run: |
           kubectl apply -f deployment.yaml
+          kubectl apply -f service.yaml
 
       - name: Update Deployment Image
         run: |
