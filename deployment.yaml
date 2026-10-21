@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: flask-demo
-        image: yathavacr.azurecr.io/flask-demo:latest
+        image: image: yathavacr01.azurecr.io/flask-demo:latest
 
         ports:
         - containerPort: 5000
