@@ -21,6 +21,24 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Verify Azure Account
+        run: |
+          az account show
+
+      - name: Verify Secret Values
+        run: |
+          echo "ACR_NAME=${{ secrets.ACR_NAME }}"
+          echo "AKS_CLUSTER_NAME=${{ secrets.AKS_CLUSTER_NAME }}"
+          echo "RESOURCE_GROUP=${{ secrets.RESOURCE_GROUP }}"
+
+      - name: List ACR Registries
+        run: |
+          az acr list -o table
+
+      - name: Show ACR Details
+        run: |
+          az acr show --name ${{ secrets.ACR_NAME }}
+
       - name: Login to ACR
         run: |
           az acr login --name ${{ secrets.ACR_NAME }}
@@ -39,11 +57,11 @@ jobs:
           resource-group: ${{ secrets.RESOURCE_GROUP }}
           cluster-name: ${{ secrets.AKS_CLUSTER_NAME }}
 
-      - name: Deploy Application
+      - name: Apply Deployment
         run: |
           kubectl apply -f deployment.yaml
 
-      - name: Update Image
+      - name: Update Deployment Image
         run: |
           kubectl set image deployment/flask-demo \
           flask-demo=${{ secrets.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
